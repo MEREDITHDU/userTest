@@ -21,5 +21,5 @@ Allure 2.13.0
 To run this project, install it locally using git:
 ```
 $ cd ../userTest
-$git clone
+$ git clone
 ```
