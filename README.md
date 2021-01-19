@@ -1,5 +1,6 @@
 # userTest
-##Test scenario:
+##Test scenario
+
 As a new user, I would like to register my account
 As a user I would like to log in my account with my e-mail and password.
 Possible Test cases:
