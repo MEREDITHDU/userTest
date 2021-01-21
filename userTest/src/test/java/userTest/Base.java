@@ -5,21 +5,25 @@
  */
 package userTest;
 
+import environment.EnvironmentSetup;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pageObject.BannerPage;
+import pageObject.LoginPage;
+import pageObject.RegisterationPage;
 
 /**
  *
  * @author Qilin
  */
-public class Base {
-    public WebDriver driver;
+public class Base extends EnvironmentSetup{
+        public WebDriver driver;
 	public static ThreadLocal<WebDriver> tdriver = new ThreadLocal<WebDriver>();
 
 	public WebDriver initialize_driver() {
-
+            
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
@@ -27,8 +31,9 @@ public class Base {
 		tdriver.set(driver);
 		return getDriver();
 	}
-	
+
 	public static synchronized WebDriver getDriver() {
 		return tdriver.get();
 	}
+        
 }
