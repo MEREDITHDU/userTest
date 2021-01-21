@@ -59,7 +59,7 @@
                     <groupId>org.testng</groupId>
                     <artifactId>testng</artifactId>
                     <version>7.0.0</version>
-                    <scope>test</scope>
+                        <type>jar</type>
                 </dependency>
 	
 		<!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->

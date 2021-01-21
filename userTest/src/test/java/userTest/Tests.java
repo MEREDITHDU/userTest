@@ -12,13 +12,15 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import pageObject.BannerPage;
+import pageObject.LoginPage;
+import pageObject.RegisterationPage;
 
 /**
  *
@@ -26,8 +28,11 @@ import org.testng.annotations.Test;
  */
 @Listeners({AllureListener.class})
 public class Tests extends Base{
-    private WebDriver driver;
-	
+        private WebDriver driver;
+	BannerPage bannerpage;
+        LoginPage loginpage;
+        RegisterationPage registrationpage;
+        
 	@BeforeClass 
 	public void setUp() {
 		Base bs= new Base();
@@ -35,6 +40,7 @@ public class Tests extends Base{
 		driver.get("https://demo.nopcommerce.com/");
 		
 	}
+        
         @Severity(SeverityLevel.MINOR)	
 	@Test(priority=1, description="Verify Banner presence on Home Page")
 	@Description("Verify Banner presence on Home Page........")
@@ -44,7 +50,8 @@ public class Tests extends Base{
 	@Step("Verify Banner Presence")
 	public void bannerPresence() throws InterruptedException
 	{
-		boolean dispStatus=driver.findElement(By.xpath("//*[@id=\"nivo-slider\"]/img")).isDisplayed();
+                bannerpage =new BannerPage(driver);
+		boolean dispStatus=bannerpage.ifBannerExists();
 		Assert.assertEquals(dispStatus, true);
 	}
 	
@@ -57,10 +64,9 @@ public class Tests extends Base{
 	@Step("Verify login")
 	public void loginTest() throws InterruptedException
 	{
-		driver.findElement(By.linkText("Log in")).click();
-		driver.findElement(By.id("Email")).sendKeys("duheimei@gmail.com");
-		driver.findElement(By.id("Password")).sendKeys("Test@123");
-		driver.findElement(By.xpath("//input[@class='button-1 login-button']")).click();
+                loginpage=new LoginPage(driver);
+		loginpage.findLoginLink();
+                loginpage.LoginToPage();
 		Thread.sleep(3000);
 		Assert.assertEquals(driver.getTitle(), "nopCommerce demo store. Login");
 
@@ -75,12 +81,9 @@ public class Tests extends Base{
 	
 	public void registrationTest() throws InterruptedException
 	{
-		driver.findElement(By.linkText("Register")).click();
-		driver.findElement(FirstNameLocator).sendKeys("Pitor");
-                driver.findElement(LastNameLocator).sendKeys("Kielbasa");
-                driver.findElement(EmailLocator).sendKeys("people@friday.de");
-                driver.findElement(PasswordLocator).sendKeys("Test123");
-                driver.findElement(ConfirmPasswordLocator).sendKeys("Test123");   
+                registrationpage = new RegisterationPage(driver);
+		registrationpage.findRegisterLink();
+                registrationpage.saveAndRegister();
                 Thread.sleep(1000);
 		Assert.assertEquals(driver.getTitle(), "nopCommerce demo store. Register");
 	}
@@ -90,8 +93,5 @@ public class Tests extends Base{
 	public void tearDown()
 	{	
 		driver.quit();
-	}
-	
-	    
-    
+	}   
 }
