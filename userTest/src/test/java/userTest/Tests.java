@@ -76,6 +76,11 @@ public class Tests extends Base{
 	public void registrationTest() throws InterruptedException
 	{
 		driver.findElement(By.linkText("Register")).click();
+		driver.findElement(FirstNameLocator).sendKeys("Pitor");
+                driver.findElement(LastNameLocator).sendKeys("Kielbasa");
+                driver.findElement(EmailLocator).sendKeys("people@friday.de");
+                driver.findElement(PasswordLocator).sendKeys("Test123");
+                driver.findElement(ConfirmPasswordLocator).sendKeys("Test123");   
                 Thread.sleep(1000);
 		Assert.assertEquals(driver.getTitle(), "nopCommerce demo store. Register");
 	}
