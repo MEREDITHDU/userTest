@@ -14,8 +14,11 @@ Possible Test cases:
 
 ##Technologies
 Project is created with:
+
 Java 8 or Java 11
+
 TestNG 7.0.0
+
 Allure 2.13.0
 
 ##HowtoUse
